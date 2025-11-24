@@ -1,0 +1,36 @@
+spring:
+  application:
+    title: jobTitleStandardiser
+  cache:
+    cache-titles: job-normaliser-cache
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=5m
+
+logging:
+  level:
+    org.springframework.cache: debug
+    com.github.benmanes.caffeine: debug
+
+jobs:
+  - title: architect
+    contextKeywords: []
+
+  - title: software engineer
+    contextKeywords:
+      - java
+      - python
+      - c#
+      - c++
+      - javascript
+      - ruby
+      - typescript
+      - go
+      - kotlin
+
+  - title: quantity surveyor
+    contextKeywords: []
+
+  - title: accountant
+    contextKeywords:
+      - aca
+      - audit
