@@ -2,9 +2,11 @@ package com.edmund.org.jobTitleNormaliser;
 
 import com.edmund.org.jobTitleNormaliser.similarityStrategies.SimilarityStrategy;
 import com.edmund.org.jobTitleNormaliser.model.JobDefinition;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 public class TitleMatcher {
 
     private final List<SimilarityStrategy> strategies;
@@ -39,6 +41,7 @@ public class TitleMatcher {
                 bestTitle = job.title();
             }
         }
+        log.debug(String.format("Best score: %s", bestScore));
 
         return bestScore >= threshold ? bestTitle : null;
     }

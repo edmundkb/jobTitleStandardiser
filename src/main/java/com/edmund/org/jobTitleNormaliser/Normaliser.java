@@ -1,6 +1,7 @@
 package com.edmund.org.jobTitleNormaliser;
 
 import com.edmund.org.jobTitleNormaliser.exceptions.InvalidInputException;
+import com.edmund.org.jobTitleNormaliser.model.MatchingProperties;
 import com.edmund.org.jobTitleNormaliser.similarityStrategies.CosineSimilarityStrategy;
 import com.edmund.org.jobTitleNormaliser.model.JobDefinition;
 import com.edmund.org.jobTitleNormaliser.model.JobProperties;
@@ -15,9 +16,11 @@ public class Normaliser {
 
     private final List<JobDefinition> jobDefinitions;
     private final TitleMatcher matcher;
+    private final double threshold;
 
-    public Normaliser(JobProperties properties) {
+    public Normaliser(JobProperties properties, MatchingProperties matchingProperties) {
         this.jobDefinitions = properties.jobs();
+        this.threshold = matchingProperties.getThreshold();
 
         //Add additional strategies here
         this.matcher = new TitleMatcher(
@@ -34,7 +37,7 @@ public class Normaliser {
             throw new InvalidInputException("Input job title cannot be null or empty");
         }
 
-        String result = matcher.findBestMatch(input, jobDefinitions, 0.6);
+        String result = matcher.findBestMatch(input, jobDefinitions, threshold);
 
         if (result == null) {
             throw new InvalidInputException("Unable to determine job title: " + input);

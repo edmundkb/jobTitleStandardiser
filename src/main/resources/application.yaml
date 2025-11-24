@@ -34,3 +34,6 @@ jobs:
     contextKeywords:
       - aca
       - audit
+
+normaliser:
+    threshold: 0.4

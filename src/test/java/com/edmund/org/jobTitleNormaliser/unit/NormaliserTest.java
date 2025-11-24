@@ -3,6 +3,7 @@ package com.edmund.org.jobTitleNormaliser.unit;
 import com.edmund.org.jobTitleNormaliser.Normaliser;
 import com.edmund.org.jobTitleNormaliser.model.JobDefinition;
 import com.edmund.org.jobTitleNormaliser.model.JobProperties;
+import com.edmund.org.jobTitleNormaliser.model.MatchingProperties;
 import com.edmund.org.jobTitleNormaliser.unit.util.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,16 +19,18 @@ class NormaliserTest {
     @BeforeEach
     void setup() {
         // Create JobDefinitions with optional context keywords
-        List<JobDefinition> jobs = List.of(
+        final List<JobDefinition> jobs = List.of(
                 new JobDefinition(Constants.ARCHITECT, List.of()),
                 new JobDefinition(Constants.SOFTWARE_ENGINEER, List.of("java", "c#", "python")),
                 new JobDefinition(Constants.QUANTITY_SURVEYOR, List.of()),
                 new JobDefinition(Constants.ACCOUNTANT, List.of("acca", "cpa"))
         );
 
-        JobProperties props = new JobProperties(jobs);
+        JobProperties jobProperties = new JobProperties(jobs);
+        MatchingProperties matchingProperties = new MatchingProperties();
+        matchingProperties.setThreshold(0.45);
 
-        normaliser = new Normaliser(props);
+        normaliser = new Normaliser(jobProperties, matchingProperties);
     }
 
     @Test
